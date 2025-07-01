@@ -2,7 +2,7 @@
 
 namespace DevJeetu\CaseConverter;
 
-readonly class FluentCaseConverter
+class FluentCaseConverter
 {
     public function __construct(private string $input)
     {
