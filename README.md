@@ -151,11 +151,11 @@ $result = CaseConverter::from('firstName')
 ### Individual Converters
 
 ```php
-use DevJeetu\CaseConverter\Converters\SnakeCaseConverter;
-use DevJeetu\CaseConverter\Converters\CamelCaseConverter;
+use DevJeetu\CaseConverter\Converters\SnakeCase;
+use DevJeetu\CaseConverter\Converters\CamelCase;
 
-echo SnakeCaseConverter::convert('firstName');  // first_name
-echo CamelCaseConverter::convert('user_name');  // userName
+echo SnakeCase::convert('firstName');  // first_name
+echo CamelCase::convert('user_name');  // userName
 ```
 
 ## 🧠 Acronym Handling

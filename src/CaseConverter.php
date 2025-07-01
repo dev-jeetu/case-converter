@@ -4,83 +4,98 @@ declare(strict_types=1);
 
 namespace DevJeetu\CaseConverter;
 
-/**
- * Main facade class for case conversion operations
- *
- * Provides a simple, fluent API for converting between different naming conventions.
- *
- * @author Jeetu
- */
+use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
+
 class CaseConverter
 {
-    public static function toSnakeCase(string $string): string
+    public static function convert(string $input, CaseFormat|string $format): string
     {
-        return CaseFormat::SNAKE_CASE->convert($string);
-    }
-
-    public static function toScreamedSnakeCase(string $string): string
-    {
-        return CaseFormat::SCREAMED_SNAKE_CASE->convert($string);
-    }
-
-    public static function toCamelCase(string $string): string
-    {
-        return CaseFormat::CAMEL_CASE->convert($string);
-    }
-
-    public static function toPascalCase(string $string): string
-    {
-        return CaseFormat::PASCAL_CASE->convert($string);
-    }
-
-    public static function toKebabCase(string $string): string
-    {
-        return CaseFormat::KEBAB_CASE->convert($string);
-    }
-
-    public static function toTrainCase(string $string): string
-    {
-        return CaseFormat::TRAIN_CASE->convert($string);
-    }
-
-    public static function toDotCase(string $string): string
-    {
-        return CaseFormat::DOT_CASE->convert($string);
-    }
-
-
-    public static function toSpaceCase(string $string): string
-    {
-        return CaseFormat::SPACE_CASE->convert($string);
-    }
-
-
-    public static function toPathCase(string $string): string
-    {
-        return CaseFormat::PATH_CASE->convert($string);
-    }
-
-
-    public static function toTitleCase(string $string): string
-    {
-        return CaseFormat::TITLE_CASE->convert($string);
-    }
-
-
-    public static function toConstantCase(string $string): string
-    {
-        return CaseFormat::CONSTANT_CASE->convert($string);
-    }
-
-    public static function convert(string $string, CaseFormat|string $format): string
-    {
-        if ($format instanceof CaseFormat) {
-            return $format->convert($string);
+        if (is_string($format)) {
+            $format = CaseFormat::fromString($format);
         }
 
-        return CaseFormat::fromString($format)->convert($string);
+        return $format->convert($input);
     }
 
+    public static function from(string $input): FluentCaseConverter
+    {
+        return new FluentCaseConverter($input);
+    }
+
+    public static function toCamel(string $input): string
+    {
+        return CaseFormat::CAMEL->convert($input);
+    }
+
+    public static function toPascal(string $input): string
+    {
+        return CaseFormat::PASCAL->convert($input);
+    }
+
+    public static function toSnake(string $input): string
+    {
+        return CaseFormat::SNAKE->convert($input);
+    }
+
+    public static function toKebab(string $input): string
+    {
+        return CaseFormat::KEBAB->convert($input);
+    }
+
+    public static function toMacro(string $input): string
+    {
+        return CaseFormat::MACRO->convert($input);
+    }
+
+    public static function toTrain(string $input): string
+    {
+        return CaseFormat::TRAIN->convert($input);
+    }
+
+    public static function toDot(string $input): string
+    {
+        return CaseFormat::DOT->convert($input);
+    }
+
+    public static function toLower(string $input): string
+    {
+        return CaseFormat::LOWER->convert($input);
+    }
+
+    public static function toUpper(string $input): string
+    {
+        return CaseFormat::UPPER->convert($input);
+    }
+
+    public static function toTitle(string $input): string
+    {
+        return CaseFormat::TITLE->convert($input);
+    }
+
+    public static function toPath(string $input): string
+    {
+        return CaseFormat::PATH->convert($input);
+    }
+
+    public static function toAda(string $input): string
+    {
+        return CaseFormat::ADA->convert($input);
+    }
+
+    public static function toCobol(string $input): string
+    {
+        return CaseFormat::COBOL->convert($input);
+    }
+
+    public static function toSentence(string $input): string
+    {
+        return CaseFormat::SENTENCE->convert($input);
+    }
+
+    public static function isFormatSupported(string $format): bool
+    {
+        return CaseFormat::isSupported($format);
+    }
 
     /**
      * @return array<CaseFormat>
@@ -95,7 +110,7 @@ class CaseConverter
      */
     public static function getSupportedFormatNames(): array
     {
-        return array_map(fn (CaseFormat $format) => $format->value, CaseFormat::cases());
+        return CaseFormat::getSupportedNames();
     }
 
     /**
@@ -103,45 +118,47 @@ class CaseConverter
      */
     public static function getSupportedAliases(): array
     {
-        $aliases = [];
-        foreach (CaseFormat::cases() as $format) {
-            $aliases = array_merge($aliases, $format->getAliases());
-        }
-
-        return array_unique($aliases);
+        return CaseFormat::getAllAliases();
     }
 
-    public static function isFormatSupported(string $format): bool
-    {
-        try {
-            CaseFormat::fromString($format);
-
-            return true;
-        } catch (\InvalidArgumentException) {
-            return false;
-        }
-    }
-
-    /**
-     * @return array{name: string, description: string, example: string, aliases: array<string>, converter_class: string}
-     */
-    public static function getFormatInfo(CaseFormat|string $format): array
+    public static function getFormatInfo(CaseFormat|string $format): CaseFormatInfo
     {
         if (is_string($format)) {
             $format = CaseFormat::fromString($format);
         }
 
-        return [
-            'name' => $format->value,
-            'description' => $format->getDescription(),
-            'example' => $format->getExample(),
-            'aliases' => $format->getAliases(),
-            'converter_class' => $format->getConverterClass(),
-        ];
+        return $format->getInfo();
     }
 
-    public static function from(string $string): CaseConverterFluent
+    /**
+     * @return array<string, CaseFormatInfo>
+     */
+    public static function getAllFormatsInfo(): array
     {
-        return new CaseConverterFluent($string);
+        $info = [];
+        foreach (CaseFormat::cases() as $format) {
+            $info[$format->value] = $format->getInfo();
+        }
+
+        return $info;
+    }
+
+    public static function listFormats(): string
+    {
+        $output = "Supported Case Formats:\n";
+        $output .= str_repeat("=", 50) . "\n\n";
+
+        foreach (CaseFormat::cases() as $format) {
+            $output .= sprintf(
+                "%s %s\n%s\nExample: %s\nAliases: %s\n\n",
+                $format->getEmoji(),
+                $format->getDisplayName(),
+                $format->getDescription(),
+                $format->getExample(),
+                implode(', ', array_slice($format->getAliases(), 0, 3))
+            );
+        }
+
+        return $output;
     }
 }

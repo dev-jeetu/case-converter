@@ -1,0 +1,363 @@
+[
+  {
+    "input": "",
+    "cases": {
+      "snake": "",
+      "macro": "",
+      "camel": "",
+      "pascal": "",
+      "kebab": "",
+      "train": "",
+      "dot": "",
+      "lower": "",
+      "upper": "",
+      "title": "",
+      "path": "",
+      "ada": "",
+      "cobol": "",
+      "sentence": ""
+    }
+  },
+  {
+    "input": "userName",
+    "cases": {
+      "snake": "user_name",
+      "macro": "USER_NAME",
+      "camel": "userName",
+      "pascal": "UserName",
+      "kebab": "user-name",
+      "train": "User-Name",
+      "dot": "user.name",
+      "lower": "user name",
+      "upper": "USER NAME",
+      "title": "User Name",
+      "path": "user/name",
+      "ada": "User_Name",
+      "cobol": "USER-NAME",
+      "sentence": "User name"
+    }
+  },
+  {
+    "input": "FirstName",
+    "cases": {
+      "snake": "first_name",
+      "macro": "FIRST_NAME",
+      "camel": "firstName",
+      "pascal": "FirstName",
+      "kebab": "first-name",
+      "train": "First-Name",
+      "dot": "first.name",
+      "lower": "first name",
+      "upper": "FIRST NAME",
+      "title": "First Name",
+      "path": "first/name",
+      "ada": "First_Name",
+      "cobol": "FIRST-NAME",
+      "sentence": "First name"
+    }
+  },
+  {
+    "input": "user-name",
+    "cases": {
+      "snake": "user_name",
+      "macro": "USER_NAME",
+      "camel": "userName",
+      "pascal": "UserName",
+      "kebab": "user-name",
+      "train": "User-Name",
+      "dot": "user.name",
+      "lower": "user name",
+      "upper": "USER NAME",
+      "title": "User Name",
+      "path": "user/name",
+      "ada": "User_Name",
+      "cobol": "USER-NAME",
+      "sentence": "User name"
+    }
+  },
+  {
+    "input": "user_name",
+    "cases": {
+      "snake": "user_name",
+      "macro": "USER_NAME",
+      "camel": "userName",
+      "pascal": "UserName",
+      "kebab": "user-name",
+      "train": "User-Name",
+      "dot": "user.name",
+      "lower": "user name",
+      "upper": "USER NAME",
+      "title": "User Name",
+      "path": "user/name",
+      "ada": "User_Name",
+      "cobol": "USER-NAME",
+      "sentence": "User name"
+    }
+  },
+  {
+    "input": "user.name",
+    "cases": {
+      "snake": "user_name",
+      "macro": "USER_NAME",
+      "camel": "userName",
+      "pascal": "UserName",
+      "kebab": "user-name",
+      "train": "User-Name",
+      "dot": "user.name",
+      "lower": "user name",
+      "upper": "USER NAME",
+      "title": "User Name",
+      "path": "user/name",
+      "ada": "User_Name",
+      "cobol": "USER-NAME",
+      "sentence": "User name"
+    }
+  },
+  {
+    "input": "user name",
+    "cases": {
+      "snake": "user_name",
+      "macro": "USER_NAME",
+      "camel": "userName",
+      "pascal": "UserName",
+      "kebab": "user-name",
+      "train": "User-Name",
+      "dot": "user.name",
+      "lower": "user name",
+      "upper": "USER NAME",
+      "title": "User Name",
+      "path": "user/name",
+      "ada": "User_Name",
+      "cobol": "USER-NAME",
+      "sentence": "User name"
+    }
+  },
+  {
+    "input": "user/name",
+    "cases": {
+      "snake": "user_name",
+      "macro": "USER_NAME",
+      "camel": "userName",
+      "pascal": "UserName",
+      "kebab": "user-name",
+      "train": "User-Name",
+      "dot": "user.name",
+      "lower": "user name",
+      "upper": "USER NAME",
+      "title": "User Name",
+      "path": "user/name",
+      "ada": "User_Name",
+      "cobol": "USER-NAME",
+      "sentence": "User name"
+    }
+  },
+  {
+    "input": "userFirstName",
+    "cases": {
+      "snake": "user_first_name",
+      "macro": "USER_FIRST_NAME",
+      "camel": "userFirstName",
+      "pascal": "UserFirstName",
+      "kebab": "user-first-name",
+      "train": "User-First-Name",
+      "dot": "user.first.name",
+      "lower": "user first name",
+      "upper": "USER FIRST NAME",
+      "title": "User First Name",
+      "path": "user/first/name",
+      "ada": "User_First_Name",
+      "cobol": "USER-FIRST-NAME",
+      "sentence": "User first name"
+    }
+  },
+  {
+    "input": "APIKey",
+    "cases": {
+      "snake": "api_key",
+      "macro": "API_KEY",
+      "camel": "APIKey",
+      "pascal": "APIKey",
+      "kebab": "api-key",
+      "train": "API-Key",
+      "dot": "api.key",
+      "lower": "api key",
+      "upper": "API KEY",
+      "title": "API Key",
+      "path": "api/key",
+      "ada": "API_Key",
+      "cobol": "API-KEY",
+      "sentence": "API key"
+    }
+  },
+  {
+    "input": "XMLHttpRequest",
+    "cases": {
+      "snake": "xml_http_request",
+      "macro": "XML_HTTP_REQUEST",
+      "camel": "XMLHttpRequest",
+      "pascal": "XMLHttpRequest",
+      "kebab": "xml-http-request",
+      "train": "XML-Http-Request",
+      "dot": "xml.http.request",
+      "lower": "xml http request",
+      "upper": "XML HTTP REQUEST",
+      "title": "XML Http Request",
+      "path": "xml/http/request",
+      "ada": "XML_Http_Request",
+      "cobol": "XML-HTTP-REQUEST",
+      "sentence": "XML http request"
+    }
+  },
+  {
+    "input": "JSONWebToken",
+    "cases": {
+      "snake": "json_web_token",
+      "macro": "JSON_WEB_TOKEN",
+      "camel": "JSONWebToken",
+      "pascal": "JSONWebToken",
+      "kebab": "json-web-token",
+      "train": "JSON-Web-Token",
+      "dot": "json.web.token",
+      "lower": "json web token",
+      "upper": "JSON WEB TOKEN",
+      "title": "JSON Web Token",
+      "path": "json/web/token",
+      "ada": "JSON_Web_Token",
+      "cobol": "JSON-WEB-TOKEN",
+      "sentence": "JSON web token"
+    }
+  },
+  {
+    "input": "iPhone",
+    "cases": {
+      "snake": "i_phone",
+      "macro": "I_PHONE",
+      "camel": "iPhone",
+      "pascal": "IPhone",
+      "kebab": "i-phone",
+      "train": "I-Phone",
+      "dot": "i.phone",
+      "lower": "i phone",
+      "upper": "I PHONE",
+      "title": "I Phone",
+      "path": "i/phone",
+      "ada": "I_Phone",
+      "cobol": "I-PHONE",
+      "sentence": "I phone"
+    }
+  },
+  {
+    "input": "iOS",
+    "cases": {
+      "snake": "i_os",
+      "macro": "I_OS",
+      "camel": "iOS",
+      "pascal": "IOS",
+      "kebab": "i-os",
+      "train": "I-OS",
+      "dot": "i.os",
+      "lower": "i os",
+      "upper": "I OS",
+      "title": "I OS",
+      "path": "i/os",
+      "ada": "I_OS",
+      "cobol": "I-OS",
+      "sentence": "I OS"
+    }
+  },
+  {
+    "input": "macOS",
+    "cases": {
+      "snake": "mac_os",
+      "macro": "MAC_OS",
+      "camel": "macOS",
+      "pascal": "MacOS",
+      "kebab": "mac-os",
+      "train": "Mac-OS",
+      "dot": "mac.os",
+      "lower": "mac os",
+      "upper": "MAC OS",
+      "title": "Mac OS",
+      "path": "mac/os",
+      "ada": "Mac_OS",
+      "cobol": "MAC-OS",
+      "sentence": "Mac OS"
+    }
+  },
+  {
+    "input": "parseHTML",
+    "cases": {
+      "snake": "parse_html",
+      "macro": "PARSE_HTML",
+      "camel": "parseHTML",
+      "pascal": "ParseHTML",
+      "kebab": "parse-html",
+      "train": "Parse-HTML",
+      "dot": "parse.html",
+      "lower": "parse html",
+      "upper": "PARSE HTML",
+      "title": "Parse HTML",
+      "path": "parse/html",
+      "ada": "Parse_HTML",
+      "cobol": "PARSE-HTML",
+      "sentence": "Parse HTML"
+    }
+  },
+  {
+    "input": "getHTTPSUrl",
+    "cases": {
+      "snake": "get_https_url",
+      "macro": "GET_HTTPS_URL",
+      "camel": "getHTTPSUrl",
+      "pascal": "GetHTTPSUrl",
+      "kebab": "get-https-url",
+      "train": "Get-HTTPS-Url",
+      "dot": "get.https.url",
+      "lower": "get https url",
+      "upper": "GET HTTPS URL",
+      "title": "Get HTTPS Url",
+      "path": "get/https/url",
+      "ada": "Get_HTTPS_Url",
+      "cobol": "GET-HTTPS-URL",
+      "sentence": "Get HTTPS url"
+    }
+  },
+  {
+    "input": "user123Name",
+    "cases": {
+      "snake": "user123_name",
+      "macro": "USER123_NAME",
+      "camel": "user123Name",
+      "pascal": "User123Name",
+      "kebab": "user123-name",
+      "train": "User123-Name",
+      "dot": "user123.name",
+      "lower": "user123 name",
+      "upper": "USER123 NAME",
+      "title": "User123 Name",
+      "path": "user123/name",
+      "ada": "User123_Name",
+      "cobol": "USER123-NAME",
+      "sentence": "User123 name"
+    }
+  },
+  {
+    "input": "complex_api-response.data space/path",
+    "cases": {
+      "snake": "complex_api_response_data_space_path",
+      "macro": "COMPLEX_API_RESPONSE_DATA_SPACE_PATH",
+      "camel": "complexApiResponseDataSpacePath",
+      "pascal": "ComplexApiResponseDataSpacePath",
+      "kebab": "complex-api-response-data-space-path",
+      "train": "Complex-Api-Response-Data-Space-Path",
+      "dot": "complex.api.response.data.space.path",
+      "lower": "complex api response data space path",
+      "upper": "COMPLEX API RESPONSE DATA SPACE PATH",
+      "title": "Complex Api Response Data Space Path",
+      "path": "complex/api/response/data/space/path",
+      "ada": "Complex_Api_Response_Data_Space_Path",
+      "cobol": "COMPLEX-API-RESPONSE-DATA-SPACE-PATH",
+      "sentence": "Complex api response data space path"
+    }
+  }
+]

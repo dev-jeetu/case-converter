@@ -4,95 +4,206 @@ declare(strict_types=1);
 
 namespace DevJeetu\CaseConverter;
 
-use DevJeetu\CaseConverter\Converters\CamelCaseConverter;
-use DevJeetu\CaseConverter\Converters\ConstantCaseConverter;
-use DevJeetu\CaseConverter\Converters\DotCaseConverter;
-use DevJeetu\CaseConverter\Converters\KebabCaseConverter;
-use DevJeetu\CaseConverter\Converters\PascalCaseConverter;
-use DevJeetu\CaseConverter\Converters\PathCaseConverter;
-use DevJeetu\CaseConverter\Converters\ScreamedSnakeCaseConverter;
-use DevJeetu\CaseConverter\Converters\SnakeCaseConverter;
-use DevJeetu\CaseConverter\Converters\SpaceCaseConverter;
-use DevJeetu\CaseConverter\Converters\TitleCaseConverter;
-use DevJeetu\CaseConverter\Converters\TrainCaseConverter;
+use DevJeetu\CaseConverter\Converters\AdaCase;
+use DevJeetu\CaseConverter\Converters\CamelCase;
+use DevJeetu\CaseConverter\Converters\CobolCase;
+use DevJeetu\CaseConverter\Converters\DotCase;
+use DevJeetu\CaseConverter\Converters\KebabCase;
+use DevJeetu\CaseConverter\Converters\LowerCase;
+use DevJeetu\CaseConverter\Converters\MacroCase;
+use DevJeetu\CaseConverter\Converters\PascalCase;
+use DevJeetu\CaseConverter\Converters\PathCase;
+use DevJeetu\CaseConverter\Converters\SentenceCase;
+use DevJeetu\CaseConverter\Converters\SnakeCase;
+use DevJeetu\CaseConverter\Converters\TitleCase;
+use DevJeetu\CaseConverter\Converters\TrainCase;
+use DevJeetu\CaseConverter\Converters\UpperCase;
+use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
 
 /**
- * Enum representing all supported case formats
+ * Enum representing different case formats with intuitive names and emojis
  */
 enum CaseFormat: string
 {
-    case SNAKE_CASE = 'snake_case';
-    case SCREAMED_SNAKE_CASE = 'SCREAMED_SNAKE_CASE';
-    case CAMEL_CASE = 'camelCase';
-    case PASCAL_CASE = 'PascalCase';
-    case KEBAB_CASE = 'kebab-case';
-    case TRAIN_CASE = 'Train-Case';
-    case DOT_CASE = 'dot.case';
-    case SPACE_CASE = 'space case';
-    case PATH_CASE = 'path/case';
-    case TITLE_CASE = 'Title Case';
-    case CONSTANT_CASE = 'CONSTANT_CASE';
+    case CAMEL = 'camel';
+    case PASCAL = 'pascal';
+    case SNAKE = 'snake';
+    case KEBAB = 'kebab';
+    case MACRO = 'macro';
+    case TRAIN = 'train';
+    case DOT = 'dot';
+    case LOWER = 'lower';
+    case UPPER = 'upper';
+    case TITLE = 'title';
+    case PATH = 'path';
+    case ADA = 'ada';
+    case COBOL = 'cobol';
+    case SENTENCE = 'sentence';
 
-    /**
-     * Get the converter class for this format
-     */
-    public function getConverterClass(): string
+    public function getDescription(): string
     {
         return match ($this) {
-            self::SNAKE_CASE => SnakeCaseConverter::class,
-            self::SCREAMED_SNAKE_CASE => ScreamedSnakeCaseConverter::class,
-            self::CAMEL_CASE => CamelCaseConverter::class,
-            self::PASCAL_CASE => PascalCaseConverter::class,
-            self::KEBAB_CASE => KebabCaseConverter::class,
-            self::TRAIN_CASE => TrainCaseConverter::class,
-            self::DOT_CASE => DotCaseConverter::class,
-            self::SPACE_CASE => SpaceCaseConverter::class,
-            self::PATH_CASE => PathCaseConverter::class,
-            self::TITLE_CASE => TitleCaseConverter::class,
-            self::CONSTANT_CASE => ConstantCaseConverter::class,
+            self::CAMEL => 'First word lowercase, subsequent words capitalized, no separators',
+            self::PASCAL => 'All words capitalized, no separators',
+            self::SNAKE => 'Lowercase words separated by underscores',
+            self::KEBAB => 'Lowercase words separated by hyphens',
+            self::MACRO => 'Uppercase words separated by underscores',
+            self::TRAIN => 'Capitalized words separated by hyphens',
+            self::DOT => 'Lowercase words separated by dots',
+            self::LOWER => 'Lowercase words separated by spaces',
+            self::UPPER => 'Uppercase words separated by spaces',
+            self::TITLE => 'Capitalized words separated by spaces',
+            self::PATH => 'Lowercase words separated by forward slashes',
+            self::ADA => 'Capitalized words separated by underscores',
+            self::COBOL => 'Uppercase words separated by hyphens',
+            self::SENTENCE => 'First word capitalized, rest lowercase, separated by spaces',
+        };
+    }
+
+    public function getExample(): string
+    {
+        return match ($this) {
+            self::CAMEL => 'myNameIsBond',
+            self::PASCAL => 'MyNameIsBond',
+            self::SNAKE => 'my_name_is_bond',
+            self::KEBAB => 'my-name-is-bond',
+            self::MACRO => 'MY_NAME_IS_BOND',
+            self::TRAIN => 'My-Name-Is-Bond',
+            self::DOT => 'my.name.is.bond',
+            self::LOWER => 'my name is bond',
+            self::UPPER => 'MY NAME IS BOND',
+            self::TITLE => 'My Name Is Bond',
+            self::PATH => 'my/name/is/bond',
+            self::ADA => 'My_Name_Is_Bond',
+            self::COBOL => 'MY-NAME-IS-BOND',
+            self::SENTENCE => 'My name is bond',
+        };
+    }
+
+    public function getEmoji(): string
+    {
+        return match ($this) {
+            self::CAMEL => '🐪',
+            self::PASCAL => '👨🏫',
+            self::SNAKE => '🐍',
+            self::KEBAB => '🥙',
+            self::MACRO => '🔧',
+            self::TRAIN => '🚂',
+            self::DOT => '⚙️',
+            self::LOWER => '🔡',
+            self::UPPER => '🔠',
+            self::TITLE => '📰',
+            self::PATH => '📁',
+            self::ADA => '👩🏫',
+            self::COBOL => '🏦',
+            self::SENTENCE => '✍️',
         };
     }
 
     /**
-     * Convert string using this format
-     */
-    public function convert(string $string): string
-    {
-        $converterClass = $this->getConverterClass();
-
-        return $converterClass::convert($string);
-    }
-
-    /**
-     * Get all possible aliases for this format
+     * Get all possible aliases for this case format
      *
      * @return array<string>
      */
     public function getAliases(): array
     {
         return match ($this) {
-            self::SNAKE_CASE => ['snake', 'snake_case', 'underscore'],
-            self::SCREAMED_SNAKE_CASE => ['screamed', 'screamed_snake', 'screaming_snake', 'upper_snake', 'macro'],
-            self::CAMEL_CASE => ['camel', 'camelcase', 'lower_camel'],
-            self::PASCAL_CASE => ['pascal', 'pascalcase', 'upper_camel', 'studly'],
-            self::KEBAB_CASE => ['kebab', 'kebab-case', 'dash', 'hyphen', 'lisp'],
-            self::TRAIN_CASE => ['train', 'train-case', 'pascal-kebab'],
-            self::DOT_CASE => ['dot', 'dot.case', 'period'],
-            self::SPACE_CASE => ['space', 'space case', 'lower space'],
-            self::PATH_CASE => ['path', 'path/case', 'slash', 'directory'],
-            self::TITLE_CASE => ['title', 'title case', 'start case'],
-            self::CONSTANT_CASE => ['constant', 'upper', 'macro', 'screaming'],
+            self::CAMEL => ['camel', 'camelcase', 'camel_case', 'lower_camel', 'lowerCamel'],
+            self::PASCAL => ['pascal', 'pascalcase', 'pascal_case', 'upper_camel', 'upperCamel', 'studly'],
+            self::SNAKE => ['snake', 'snake_case', 'underscore', 'lower_snake'],
+            self::KEBAB => ['kebab', 'kebab_case', 'kebab-case', 'dash', 'hyphen', 'lisp'],
+            self::MACRO => ['macro', 'macro_case', 'screamed_snake', 'screaming_snake', 'upper_snake', 'constant'],
+            self::TRAIN => ['train', 'train_case', 'train-case', 'pascal_kebab', 'pascal-kebab'],
+            self::DOT => ['dot', 'dot_case', 'dot.case', 'period'],
+            self::LOWER => ['lower', 'lower_case', 'space', 'space_case', 'lower_space'],
+            self::UPPER => ['upper', 'upper_case', 'upper_space'],
+            self::TITLE => ['title', 'title_case', 'start_case', 'header'],
+            self::PATH => ['path', 'path_case', 'path/case', 'slash', 'directory'],
+            self::ADA => ['ada', 'ada_case', 'pascal_snake', 'upper_snake_case'],
+            self::COBOL => ['cobol', 'cobol_case', 'upper_kebab', 'screaming_kebab'],
+            self::SENTENCE => ['sentence', 'sentence_case', 'first_upper'],
+        };
+    }
+
+    public function getConverterClass(): string
+    {
+        return match ($this) {
+            self::CAMEL => CamelCase::class,
+            self::PASCAL => PascalCase::class,
+            self::SNAKE => SnakeCase::class,
+            self::KEBAB => KebabCase::class,
+            self::MACRO => MacroCase::class,
+            self::TRAIN => TrainCase::class,
+            self::DOT => DotCase::class,
+            self::LOWER => LowerCase::class,
+            self::UPPER => UpperCase::class,
+            self::TITLE => TitleCase::class,
+            self::PATH => PathCase::class,
+            self::ADA => AdaCase::class,
+            self::COBOL => CobolCase::class,
+            self::SENTENCE => SentenceCase::class,
+        };
+    }
+
+    public function getDelimiter(): string
+    {
+        return match ($this) {
+            self::CAMEL, self::PASCAL => '',
+            self::SNAKE, self::MACRO, self::ADA => '_',
+            self::KEBAB, self::TRAIN, self::COBOL => '-',
+            self::DOT => '.',
+            self::LOWER, self::UPPER, self::TITLE, self::SENTENCE => ' ',
+            self::PATH => '/',
+        };
+    }
+
+    public function isCapitalized(): bool
+    {
+        return match ($this) {
+            self::PASCAL, self::TRAIN, self::TITLE, self::ADA, self::SENTENCE => true,
+            self::UPPER, self::MACRO, self::COBOL => true,
+            default => false,
+        };
+    }
+
+    public function isUppercase(): bool
+    {
+        return match ($this) {
+            self::UPPER, self::MACRO, self::COBOL => true,
+            default => false,
+        };
+    }
+
+    public function isLowercase(): bool
+    {
+        return match ($this) {
+            self::CAMEL, self::SNAKE, self::KEBAB, self::DOT, self::LOWER, self::PATH => true,
+            default => false,
         };
     }
 
     /**
-     * Find a format by string (case-insensitive with alias support)
+     * Convert a string using this case format
+     */
+    public function convert(string $input): string
+    {
+        $converterClass = $this->getConverterClass();
+
+        if (! class_exists($converterClass)) {
+            throw new \RuntimeException("Converter class not found: {$converterClass}");
+        }
+
+        return $converterClass::convert($input);
+    }
+
+    /**
+     * Create a CaseFormat from a string (case-insensitive)
      */
     public static function fromString(string $format): self
     {
         $format = strtolower(trim($format));
         foreach (self::cases() as $case) {
-            if (strtolower($case->value) === $format) {
+            if ($case->value === $format) {
                 return $case;
             }
         }
@@ -103,34 +214,61 @@ enum CaseFormat: string
             }
         }
 
-        throw new \InvalidArgumentException("Unsupported format: $format");
+        throw new \InvalidArgumentException("Unsupported format: {$format}");
     }
 
     /**
-     * Get example output for this format
+     * @return array<string>
      */
-    public function getExample(): string
+    public static function getSupportedNames(): array
     {
-        return $this->convert('userName');
+        return array_map(fn (self $case) => $case->value, self::cases());
     }
 
     /**
-     * Get a description of this format
+     * Get all supported aliases (flattened)
+     *
+     * @return array<string>
      */
-    public function getDescription(): string
+    public static function getAllAliases(): array
     {
-        return match ($this) {
-            self::SNAKE_CASE => 'Lowercase words separated by underscores',
-            self::SCREAMED_SNAKE_CASE => 'Uppercase words separated by underscores',
-            self::CAMEL_CASE => 'First word lowercase, subsequent words capitalized, no separators',
-            self::PASCAL_CASE => 'All words capitalized, no separators',
-            self::KEBAB_CASE => 'Lowercase words separated by hyphens',
-            self::TRAIN_CASE => 'Capitalized words separated by hyphens',
-            self::DOT_CASE => 'Lowercase words separated by dots',
-            self::SPACE_CASE => 'Lowercase words separated by spaces',
-            self::PATH_CASE => 'Lowercase words separated by forward slashes',
-            self::TITLE_CASE => 'Capitalized words separated by spaces',
-            self::CONSTANT_CASE => 'Uppercase words separated by underscores (alias for SCREAMED_SNAKE_CASE)',
-        };
+        $aliases = [];
+        foreach (self::cases() as $case) {
+            $aliases = array_merge($aliases, $case->getAliases());
+        }
+
+        return array_unique($aliases);
+    }
+
+    public static function isSupported(string $format): bool
+    {
+        try {
+            self::fromString($format);
+
+            return true;
+        } catch (\InvalidArgumentException) {
+            return false;
+        }
+    }
+
+    public function getInfo(): CaseFormatInfo
+    {
+        return new CaseFormatInfo(
+            $this->value,
+            $this->getEmoji(),
+            $this->getDescription(),
+            $this->getExample(),
+            $this->getDelimiter(),
+            $this->getAliases(),
+            $this->getConverterClass(),
+            $this->isCapitalized(),
+            $this->isUppercase(),
+            $this->isLowercase()
+        );
+    }
+
+    public function getDisplayName(): string
+    {
+        return $this->getEmoji() . ' ' . ucfirst($this->value) . ' case';
     }
 }

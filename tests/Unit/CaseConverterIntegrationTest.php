@@ -21,7 +21,7 @@ class CaseConverterIntegrationTest extends TestCase
 
         $frontendData = [];
         foreach ($apiResponse as $key => $value) {
-            $frontendData[CaseConverter::toCamelCase($key)] = $value;
+            $frontendData[CaseConverter::toCamel($key)] = $value;
         }
 
         $expected = [
@@ -43,7 +43,7 @@ class CaseConverterIntegrationTest extends TestCase
         $phpProperties = [];
 
         foreach ($dbColumns as $column) {
-            $phpProperties[] = CaseConverter::toCamelCase($column);
+            $phpProperties[] = CaseConverter::toCamel($column);
         }
 
         $expected = ['userName', 'emailAddress', 'phoneNumber', 'createdAt'];
@@ -60,7 +60,7 @@ class CaseConverterIntegrationTest extends TestCase
 
         $slugs = [];
         foreach ($titles as $title) {
-            $slugs[] = CaseConverter::toKebabCase($title);
+            $slugs[] = CaseConverter::toKebab($title);
         }
 
         $expected = [

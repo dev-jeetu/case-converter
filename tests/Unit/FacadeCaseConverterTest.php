@@ -4,18 +4,19 @@ namespace DevJeetu\CaseConverter\Tests\Unit;
 
 use DevJeetu\CaseConverter\CaseConverter;
 use DevJeetu\CaseConverter\CaseFormat;
+use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
 use PHPUnit\Framework\TestCase;
 
-class CaseConverterFacadeTest extends TestCase
+class FacadeCaseConverterTest extends TestCase
 {
     public function testEnumConversion(): void
     {
         $input = 'userName';
 
-        $this->assertEquals('user_name', CaseConverter::convert($input, CaseFormat::SNAKE_CASE));
-        $this->assertEquals('USER_NAME', CaseConverter::convert($input, CaseFormat::SCREAMED_SNAKE_CASE));
-        $this->assertEquals('userName', CaseConverter::convert($input, CaseFormat::CAMEL_CASE));
-        $this->assertEquals('UserName', CaseConverter::convert($input, CaseFormat::PASCAL_CASE));
+        $this->assertEquals('user_name', CaseConverter::convert($input, CaseFormat::SNAKE));
+        $this->assertEquals('USER_NAME', CaseConverter::convert($input, CaseFormat::MACRO));
+        $this->assertEquals('userName', CaseConverter::convert($input, CaseFormat::CAMEL));
+        $this->assertEquals('UserName', CaseConverter::convert($input, CaseFormat::PASCAL));
     }
 
     public function testStringConversion(): void
@@ -42,16 +43,16 @@ class CaseConverterFacadeTest extends TestCase
         $formats = CaseConverter::getSupportedFormats();
         $this->assertIsArray($formats);
         $this->assertContainsOnlyInstancesOf(CaseFormat::class, $formats);
-        $this->assertCount(11, $formats); // We have 11 formats
+        $this->assertCount(14, $formats);
     }
 
     public function testGetSupportedFormatNames(): void
     {
         $names = CaseConverter::getSupportedFormatNames();
         $this->assertIsArray($names);
-        $this->assertContains('snake_case', $names);
-        $this->assertContains('camelCase', $names);
-        $this->assertContains('PascalCase', $names);
+        $this->assertContains('snake', $names);
+        $this->assertContains('camel', $names);
+        $this->assertContains('pascal', $names);
     }
 
     public function testGetSupportedAliases(): void
@@ -72,23 +73,22 @@ class CaseConverterFacadeTest extends TestCase
         $this->assertFalse(CaseConverter::isFormatSupported('invalid_format'));
     }
 
-    public function testGetFormatInfo(): void
+    public function testGetFormatInfoReturnsValidCaseFormatInfo(): void
     {
-        $info = CaseConverter::getFormatInfo(CaseFormat::SNAKE_CASE);
-        $this->assertIsArray($info);
-        $this->assertArrayHasKey('name', $info);
-        $this->assertArrayHasKey('description', $info);
-        $this->assertArrayHasKey('example', $info);
-        $this->assertArrayHasKey('aliases', $info);
-        $this->assertArrayHasKey('converter_class', $info);
+        foreach (CaseFormat::cases() as $case) {
+            $info = CaseConverter::getFormatInfo($case);
 
-        $this->assertEquals('snake_case', $info['name']);
-        $this->assertEquals('user_name', $info['example']);
-    }
-
-    public function testGetFormatInfoWithString(): void
-    {
-        $info = CaseConverter::getFormatInfo('snake');
-        $this->assertEquals('snake_case', $info['name']);
+            $this->assertInstanceOf(CaseFormatInfo::class, $info);
+            $this->assertEquals($case->value, $info->name, "Name mismatch for $case->name");
+            $this->assertIsString($info->emoji, "Emoji should be a string for $case->name");
+            $this->assertIsString($info->description, "Description should be a string for $case->name");
+            $this->assertEquals($case->getExample(), $info->example, "Example mismatch for $case->name");
+            $this->assertEquals($case->getAliases(), $info->aliases, "Aliases mismatch for $case->name");
+            $this->assertEquals($case->getDelimiter(), $info->delimiter, "Delimiter mismatch for $case->name");
+            $this->assertEquals($case->getConverterClass(), $info->converterClass, "Converter class mismatch for $case->name");
+            $this->assertEquals($case->isCapitalized(), $info->isCapitalized, "Capitalization mismatch for $case->name");
+            $this->assertEquals($case->isUppercase(), $info->isUppercase, "Uppercase mismatch for $case->name");
+            $this->assertEquals($case->isLowercase(), $info->isLowercase, "Lowercase mismatch for $case->name");
+        }
     }
 }

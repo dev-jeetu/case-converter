@@ -13,7 +13,7 @@ class CaseConverterPerformanceTest extends TestCase
 
         $start = microtime(true);
         foreach ($inputs as $input) {
-            CaseConverter::toSnakeCase($input);
+            CaseConverter::toSnake($input);
         }
         $end = microtime(true);
 
@@ -26,7 +26,7 @@ class CaseConverterPerformanceTest extends TestCase
         $complexString = 'XMLHttpRequestParserWithJSONWebTokenAndHTTPSConnection';
 
         $start = microtime(true);
-        $result = CaseConverter::toSnakeCase($complexString);
+        $result = CaseConverter::toSnake($complexString);
         $end = microtime(true);
 
         $this->assertLessThan(0.001, $end - $start, 'Complex string conversion should be fast');

@@ -1,16 +1,12 @@
 <?php
 
-namespace DevJeetu\CaseConverter;
+namespace DevJeetu\CaseConverter\Helpers;
 
-class CaseConverterHelper
+class Str
 {
-    public const SEPARATORS = ['.', '-', ' ', '/', '_'];
+    public const BASE_DELIMITER = ' ';
+    public const SEPARATORS = ['.', '-', '/', '_'];
     public const CAPITAL_LETTER_PATTERN = '/(?<=[a-z0-9])([A-Z])/';
-
-    public static function isEmpty(string $string): bool
-    {
-        return trim($string) === '';
-    }
 
     /**
      * Replace all common separators with specified delimiter
@@ -26,7 +22,7 @@ class CaseConverterHelper
      *
      * @param string $string The input string
      */
-    public static function normalizeAcronyms(string $string, string $delimiter = '_'): string
+    public static function normalizeAcronyms(string $string, string $delimiter): string
     {
         $result = preg_replace('/([a-z])([A-Z]{2,})$/', '$1' . $delimiter . '$2', $string) ?? $string;
 
@@ -57,5 +53,21 @@ class CaseConverterHelper
     public static function isAcronym(string $word): bool
     {
         return strlen($word) >= 2 && ctype_upper($word);
+    }
+
+    /**
+     * @return string - space separate string without any case modification.
+     */
+    public static function convert(string $string): string
+    {
+        if (trim($string) === '') {
+            return '';
+        }
+
+        $result = self::replaceAllSeparatorsWithDelimiter($string, self::BASE_DELIMITER);
+        $result = self::normalizeAcronyms($result, self::BASE_DELIMITER);
+        $result = self::insertDelimiterBeforeCapitalLetters($result, self::BASE_DELIMITER);
+
+        return self::normalizeDelimiters($result, self::BASE_DELIMITER);
     }
 }
