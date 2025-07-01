@@ -52,7 +52,11 @@ class Str
 
     public static function isAcronym(string $word): bool
     {
-        return mb_strlen($word, 'UTF-8') >= 2 && $word === mb_strtoupper($word, 'UTF-8');
+        // Only detect ASCII acronyms (like XML, HTTP, API)
+        // Non-ASCII uppercase words should be treated as normal words
+        return mb_strlen($word, 'UTF-8') >= 2 
+            && $word === mb_strtoupper($word, 'UTF-8')
+            && preg_match('/^[A-Z]+$/', $word);
     }
 
     /**

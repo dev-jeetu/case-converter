@@ -19,8 +19,8 @@ use DevJeetu\CaseConverter\Converters\TitleCase;
 use DevJeetu\CaseConverter\Converters\TrainCase;
 use DevJeetu\CaseConverter\Converters\UpperCase;
 use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
-use InvalidArgumentException;
-use RuntimeException;
+use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
+use DevJeetu\CaseConverter\Exceptions\ConverterNotFoundException;
 
 /**
  * Enum representing different case formats with intuitive names and emojis
@@ -192,7 +192,7 @@ enum CaseFormat: string
         $converterClass = $this->getConverterClass();
 
         if (! class_exists($converterClass)) {
-            throw new RuntimeException("Converter class not found: $converterClass");
+            throw new ConverterNotFoundException($converterClass, $this->value);
         }
 
         return $converterClass::convert($input);
@@ -216,7 +216,7 @@ enum CaseFormat: string
             }
         }
 
-        throw new InvalidArgumentException("Unsupported format: $format");
+        throw new UnsupportedFormatException($format, self::getSupportedNames());
     }
 
     /**
@@ -248,7 +248,7 @@ enum CaseFormat: string
             self::fromString($format);
 
             return true;
-        } catch (InvalidArgumentException) {
+        } catch (UnsupportedFormatException) {
             return false;
         }
     }

@@ -5,6 +5,7 @@ namespace DevJeetu\CaseConverter\Tests\Unit;
 use DevJeetu\CaseConverter\CaseConverter;
 use DevJeetu\CaseConverter\CaseFormat;
 use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
+use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
 use PHPUnit\Framework\TestCase;
 
 class FacadeCaseConverterTest extends TestCase
@@ -34,7 +35,7 @@ class FacadeCaseConverterTest extends TestCase
 
     public function testConvertThrowsExceptionForInvalidFormat(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(UnsupportedFormatException::class);
         CaseConverter::convert('test', 'invalid_format');
     }
 

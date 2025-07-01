@@ -3,6 +3,7 @@
 namespace DevJeetu\CaseConverter\Tests\Unit;
 
 use DevJeetu\CaseConverter\CaseFormat;
+use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
 use PHPUnit\Framework\TestCase;
 
 class CaseFormatEnumTest extends TestCase
@@ -61,8 +62,8 @@ class CaseFormatEnumTest extends TestCase
 
     public function testEnumFromStringThrowsException(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Unsupported format: invalid_format');
+        $this->expectException(UnsupportedFormatException::class);
+        $this->expectExceptionMessage('Unsupported format: \'invalid_format\'. Supported formats: camel, pascal, snake, kebab, macro, train, dot, lower, upper, title, path, ada, cobol, sentence');
 
         CaseFormat::fromString('invalid_format');
     }
