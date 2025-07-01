@@ -19,8 +19,8 @@ use DevJeetu\CaseConverter\Converters\TitleCase;
 use DevJeetu\CaseConverter\Converters\TrainCase;
 use DevJeetu\CaseConverter\Converters\UpperCase;
 use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
-use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
 use DevJeetu\CaseConverter\Exceptions\ConverterNotFoundException;
+use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
 
 /**
  * Enum representing different case formats with intuitive names and emojis

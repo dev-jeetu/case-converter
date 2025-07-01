@@ -19,7 +19,10 @@ class UnicodeCaseConverterTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function unicodeTestCases(): array
+    /**
+     * @return list<array{string, string, CaseFormat}>
+     */
+    public static function unicodeTestCases(): array
     {
         return [
             // Greek characters
@@ -143,4 +146,4 @@ class UnicodeCaseConverterTest extends TestCase
         $this->assertEquals('', CaseConverter::toCamel('   '));
         $this->assertEquals('', CaseConverter::toPascal('   '));
     }
-} 
+}

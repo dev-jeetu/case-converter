@@ -152,4 +152,4 @@ class PerformanceBenchmarkTest extends TestCase
         $this->assertLessThan(0.002, $end - $start, 'Complex string conversion should be fast');
         $this->assertEquals('xml_http_request_parser_with_json_web_token_and_https_connection', $result);
     }
-} 
+}

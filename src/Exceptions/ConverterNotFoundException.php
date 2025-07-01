@@ -13,4 +13,4 @@ class ConverterNotFoundException extends RuntimeException
         $message = "Converter class not found: '$converterClass' for format: '$format'";
         parent::__construct($message);
     }
-} 
+}

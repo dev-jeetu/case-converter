@@ -54,7 +54,7 @@ class Str
     {
         // Only detect ASCII acronyms (like XML, HTTP, API)
         // Non-ASCII uppercase words should be treated as normal words
-        return mb_strlen($word, 'UTF-8') >= 2 
+        return mb_strlen($word, 'UTF-8') >= 2
             && $word === mb_strtoupper($word, 'UTF-8')
             && preg_match('/^[A-Z]+$/', $word);
     }

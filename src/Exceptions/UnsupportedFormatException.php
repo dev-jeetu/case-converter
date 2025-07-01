@@ -8,14 +8,17 @@ use InvalidArgumentException;
 
 class UnsupportedFormatException extends InvalidArgumentException
 {
+    /**
+     * @param array<string> $supportedFormats
+     */
     public function __construct(string $format, array $supportedFormats = [])
     {
         $message = "Unsupported format: '$format'";
-        
-        if (!empty($supportedFormats)) {
+
+        if (! empty($supportedFormats)) {
             $message .= '. Supported formats: ' . implode(', ', $supportedFormats);
         }
-        
+
         parent::__construct($message);
     }
-} 
+}
