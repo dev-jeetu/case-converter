@@ -19,6 +19,8 @@ use DevJeetu\CaseConverter\Converters\TitleCase;
 use DevJeetu\CaseConverter\Converters\TrainCase;
 use DevJeetu\CaseConverter\Converters\UpperCase;
 use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Enum representing different case formats with intuitive names and emojis
@@ -43,7 +45,7 @@ enum CaseFormat: string
     public function getDescription(): string
     {
         return match ($this) {
-            self::CAMEL => 'First word lowercase, subsequent words capitalized, no separators',
+            self::CAMEL => 'First word lowercase, later words capitalized, no separators',
             self::PASCAL => 'All words capitalized, no separators',
             self::SNAKE => 'Lowercase words separated by underscores',
             self::KEBAB => 'Lowercase words separated by hyphens',
@@ -160,7 +162,7 @@ enum CaseFormat: string
     public function isCapitalized(): bool
     {
         return match ($this) {
-            self::PASCAL, self::TRAIN, self::TITLE, self::ADA, self::SENTENCE => true,
+            self::PASCAL, self::TRAIN, self::TITLE, self::ADA, self::SENTENCE,
             self::UPPER, self::MACRO, self::COBOL => true,
             default => false,
         };
@@ -190,7 +192,7 @@ enum CaseFormat: string
         $converterClass = $this->getConverterClass();
 
         if (! class_exists($converterClass)) {
-            throw new \RuntimeException("Converter class not found: {$converterClass}");
+            throw new RuntimeException("Converter class not found: $converterClass");
         }
 
         return $converterClass::convert($input);
@@ -214,7 +216,7 @@ enum CaseFormat: string
             }
         }
 
-        throw new \InvalidArgumentException("Unsupported format: {$format}");
+        throw new InvalidArgumentException("Unsupported format: $format");
     }
 
     /**
@@ -246,7 +248,7 @@ enum CaseFormat: string
             self::fromString($format);
 
             return true;
-        } catch (\InvalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return false;
         }
     }
