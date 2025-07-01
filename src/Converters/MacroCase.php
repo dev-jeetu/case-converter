@@ -14,6 +14,6 @@ class MacroCase extends AbstractCase
 
     protected static function applySpecificCase(string $string): string
     {
-        return str_replace(Str::BASE_DELIMITER, static::getDelimiter(), strtoupper($string));
+        return static::delimited(Str::upper($string));
     }
 }

@@ -17,14 +17,12 @@ class CamelCase extends AbstractCase
         $words = explode(Str::BASE_DELIMITER, $string);
 
         $first = array_shift($words);
-        $firstWord = Str::isAcronym($first) ? $first : strtolower($first);
+        $firstWord = Str::isAcronym($first) ? $first : Str::lower($first);
 
         $formattedWords = array_map(function ($word) {
-            if (Str::isAcronym($word)) {
-                return $word;
-            }
-
-            return ucfirst(strtolower($word));
+            return Str::isAcronym($word)
+                ? $word
+                : Str::ucfirst(Str::lower($word));
         }, $words);
 
         return $firstWord.implode(static::getDelimiter(), $formattedWords);

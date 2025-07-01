@@ -17,10 +17,14 @@ class SentenceCase extends AbstractCase
         $words = explode(Str::BASE_DELIMITER, $string);
 
         $first = array_shift($words);
-        $firstWord = Str::isAcronym($first) ? $first : ucfirst(strtolower($first));
+        $firstWord = Str::isAcronym($first)
+            ? $first
+            : Str::ucfirst(Str::lower($first));
 
         $formattedWords = array_map(function ($word) {
-            return Str::isAcronym($word) ? $word : strtolower($word);
+            return Str::isAcronym($word)
+                ? $word
+                : Str::lower($word);
         }, $words);
 
         return $firstWord.static::getDelimiter(). implode(static::getDelimiter(), $formattedWords);

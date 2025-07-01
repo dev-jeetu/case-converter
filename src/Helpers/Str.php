@@ -6,7 +6,7 @@ class Str
 {
     public const BASE_DELIMITER = ' ';
     public const SEPARATORS = ['.', '-', '/', '_'];
-    public const CAPITAL_LETTER_PATTERN = '/(?<=[a-z0-9])([A-Z])/';
+    public const CAPITAL_LETTER_PATTERN = '/(?<=[\p{Ll}0-9])(\p{Lu})/u';
 
     /**
      * Replace all common separators with specified delimiter
@@ -24,9 +24,9 @@ class Str
      */
     public static function normalizeAcronyms(string $string, string $delimiter): string
     {
-        $result = preg_replace('/([a-z])([A-Z]{2,})$/', '$1' . $delimiter . '$2', $string) ?? $string;
+        $result = preg_replace('/(\p{Ll})(\p{Lu}{2,})$/u', '$1' . $delimiter . '$2', $string) ?? $string;
 
-        return preg_replace('/([A-Z]{2,})([A-Z][a-z])/', '$1' . $delimiter . '$2', $result) ?? $result;
+        return preg_replace('/(\p{Lu}{2,})(\p{Lu}\p{Ll})/u', '$1' . $delimiter . '$2', $result) ?? $result;
     }
 
     /**
@@ -52,7 +52,7 @@ class Str
 
     public static function isAcronym(string $word): bool
     {
-        return strlen($word) >= 2 && ctype_upper($word);
+        return mb_strlen($word, 'UTF-8') >= 2 && $word === mb_strtoupper($word, 'UTF-8');
     }
 
     /**
@@ -69,5 +69,32 @@ class Str
         $result = self::insertDelimiterBeforeCapitalLetters($result, self::BASE_DELIMITER);
 
         return self::normalizeDelimiters($result, self::BASE_DELIMITER);
+    }
+
+    /**
+     * Unicode-safe lowercase
+     */
+    public static function lower(string $string): string
+    {
+        return mb_strtolower($string, 'UTF-8');
+    }
+
+    /**
+     * Unicode-safe uppercase
+     */
+    public static function upper(string $string): string
+    {
+        return mb_strtoupper($string, 'UTF-8');
+    }
+
+    /**
+     * Unicode-safe ucfirst
+     */
+    public static function ucfirst(string $string): string
+    {
+        $firstChar = mb_substr($string, 0, 1, 'UTF-8');
+        $rest = mb_substr($string, 1, null, 'UTF-8');
+
+        return mb_strtoupper($firstChar, 'UTF-8') . mb_strtolower($rest, 'UTF-8');
     }
 }

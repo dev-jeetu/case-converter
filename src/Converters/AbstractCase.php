@@ -44,4 +44,13 @@ abstract class AbstractCase implements StringCaseConverterInterface
 
         return static::applySpecificCase($baseInput);
     }
+
+    protected static function delimited(string $string): string
+    {
+        return str_replace(
+            Str::BASE_DELIMITER,
+            static::getDelimiter(),
+            $string
+        );
+    }
 }

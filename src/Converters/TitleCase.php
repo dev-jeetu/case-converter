@@ -17,7 +17,9 @@ class TitleCase extends AbstractCase
         $words = explode(Str::BASE_DELIMITER, $string);
 
         $formattedWords = array_map(function ($word) {
-            return Str::isAcronym($word) ? $word : ucfirst(strtolower($word));
+            return Str::isAcronym($word)
+                ? $word
+                : Str::ucfirst(Str::lower($word));
         }, $words);
 
         return implode(static::getDelimiter(), $formattedWords);

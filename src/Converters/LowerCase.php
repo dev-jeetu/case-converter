@@ -14,6 +14,6 @@ class LowerCase extends AbstractCase
 
     protected static function applySpecificCase(string $string): string
     {
-        return str_replace(Str::BASE_DELIMITER, static::getDelimiter(), strtolower($string));
+        return Str::lower($string);
     }
 }
