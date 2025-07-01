@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" bootstrap="vendor/autoload.php" executionOrder="depends,defects" beStrictAboutOutputDuringTests="true" failOnRisky="true" failOnWarning="true" colors="true" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" cacheDirectory=".phpunit.cache" requireCoverageMetadata="false" beStrictAboutCoverageMetadata="true">
+  <testsuites>
+    <testsuite name="DevJeetu CaseConverter Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+    <testsuite name="Unit Tests">
+      <directory>tests/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="phpunit-report.xml"/>
+  </logging>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <ini name="memory_limit" value="512M"/>
+  </php>
+</phpunit>
