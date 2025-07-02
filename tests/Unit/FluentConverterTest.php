@@ -2,19 +2,19 @@
 
 namespace DevJeetu\CaseConverter\Tests\Unit;
 
-use DevJeetu\CaseConverter\CaseConverter;
-use DevJeetu\CaseConverter\CaseFormat;
-use DevJeetu\CaseConverter\FluentCaseConverter;
+use DevJeetu\CaseConverter\CaseType;
+use DevJeetu\CaseConverter\Converter;
+use DevJeetu\CaseConverter\FluentConverter;
 use PHPUnit\Framework\TestCase;
 
-class FluentCaseConverterTest extends TestCase
+class FluentConverterTest extends TestCase
 {
     public function testFluentInterface(): void
     {
         $input = 'userName';
 
-        $fluent = CaseConverter::from($input);
-        $this->assertInstanceOf(FluentCaseConverter::class, $fluent);
+        $fluent = Converter::from($input);
+        $this->assertInstanceOf(FluentConverter::class, $fluent);
 
         $this->assertEquals('userName', $fluent->toCamel());
         $this->assertEquals('UserName', $fluent->toPascal());
@@ -35,10 +35,10 @@ class FluentCaseConverterTest extends TestCase
     public function testFluentTo(): void
     {
         $input = 'userName';
-        $fluent = CaseConverter::from($input);
+        $fluent = Converter::from($input);
 
         $this->assertEquals('user_name', $fluent->to('snake'));
         $this->assertEquals('user-name', $fluent->to('kebab'));
-        $this->assertEquals('UserName', $fluent->to(CaseFormat::PASCAL));
+        $this->assertEquals('UserName', $fluent->to(CaseType::PASCAL));
     }
 }

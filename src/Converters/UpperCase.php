@@ -2,14 +2,14 @@
 
 namespace DevJeetu\CaseConverter\Converters;
 
-use DevJeetu\CaseConverter\CaseFormat;
+use DevJeetu\CaseConverter\CaseType;
 use DevJeetu\CaseConverter\Helpers\Str;
 
 class UpperCase extends AbstractCase
 {
-    protected static function caseFormat(): CaseFormat
+    protected static function caseType(): CaseType
     {
-        return CaseFormat::UPPER;
+        return CaseType::UPPER;
     }
 
     protected static function applySpecificCase(string $string): string

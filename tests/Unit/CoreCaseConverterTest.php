@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DevJeetu\CaseConverter\Tests\Unit;
 
-use DevJeetu\CaseConverter\CaseConverter;
+use DevJeetu\CaseConverter\Converter;
 use DevJeetu\CaseConverter\Converters\AdaCase;
 use DevJeetu\CaseConverter\Converters\CamelCase;
 use DevJeetu\CaseConverter\Converters\CobolCase;
@@ -159,85 +159,85 @@ class CoreCaseConverterTest extends TestCase
         foreach ($testCases as $input) {
             $this->assertEquals(
                 SnakeCase::convert($input),
-                CaseConverter::toSnake($input),
+                Converter::toSnake($input),
                 "toSnake mismatch for: $input"
             );
 
             $this->assertEquals(
                 CamelCase::convert($input),
-                CaseConverter::toCamel($input),
+                Converter::toCamel($input),
                 "toCamel mismatch for: $input"
             );
 
             $this->assertEquals(
                 PascalCase::convert($input),
-                CaseConverter::toPascal($input),
+                Converter::toPascal($input),
                 "toPascal mismatch for: $input"
             );
 
             $this->assertEquals(
                 KebabCase::convert($input),
-                CaseConverter::toKebab($input),
+                Converter::toKebab($input),
                 "toKebab mismatch for: $input"
             );
 
             $this->assertEquals(
                 MacroCase::convert($input),
-                CaseConverter::toMacro($input),
+                Converter::toMacro($input),
                 "toMacro mismatch for: $input"
             );
 
             $this->assertEquals(
                 TrainCase::convert($input),
-                CaseConverter::toTrain($input),
+                Converter::toTrain($input),
                 "toTrain mismatch for: $input"
             );
 
             $this->assertEquals(
                 DotCase::convert($input),
-                CaseConverter::toDot($input),
+                Converter::toDot($input),
                 "toDot mismatch for: $input"
             );
 
             $this->assertEquals(
                 LowerCase::convert($input),
-                CaseConverter::toLower($input),
+                Converter::toLower($input),
                 "toLower mismatch for: $input"
             );
 
             $this->assertEquals(
                 UpperCase::convert($input),
-                CaseConverter::toUpper($input),
+                Converter::toUpper($input),
                 "toUpper mismatch for: $input"
             );
 
             $this->assertEquals(
                 TitleCase::convert($input),
-                CaseConverter::toTitle($input),
+                Converter::toTitle($input),
                 "toTitle mismatch for: $input"
             );
 
             $this->assertEquals(
                 PathCase::convert($input),
-                CaseConverter::toPath($input),
+                Converter::toPath($input),
                 "toPath mismatch for: $input"
             );
 
             $this->assertEquals(
                 AdaCase::convert($input),
-                CaseConverter::toAda($input),
+                Converter::toAda($input),
                 "toAda mismatch for: $input"
             );
 
             $this->assertEquals(
                 CobolCase::convert($input),
-                CaseConverter::toCobol($input),
+                Converter::toCobol($input),
                 "toCobol mismatch for: $input"
             );
 
             $this->assertEquals(
                 SentenceCase::convert($input),
-                CaseConverter::toSentence($input),
+                Converter::toSentence($input),
                 "toSentence mismatch for: $input"
             );
         }

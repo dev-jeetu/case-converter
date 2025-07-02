@@ -6,103 +6,103 @@ namespace DevJeetu\CaseConverter;
 
 use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
 
-class CaseConverter
+class Converter
 {
-    public static function convert(string $input, CaseFormat|string $format): string
+    public static function convert(string $input, CaseType|string $format): string
     {
         if (is_string($format)) {
-            $format = CaseFormat::fromString($format);
+            $format = CaseType::fromString($format);
         }
 
         return $format->convert($input);
     }
 
-    public static function from(string $input): FluentCaseConverter
+    public static function from(string $input): FluentConverter
     {
-        return new FluentCaseConverter($input);
+        return new FluentConverter($input);
     }
 
     public static function toCamel(string $input): string
     {
-        return CaseFormat::CAMEL->convert($input);
+        return CaseType::CAMEL->convert($input);
     }
 
     public static function toPascal(string $input): string
     {
-        return CaseFormat::PASCAL->convert($input);
+        return CaseType::PASCAL->convert($input);
     }
 
     public static function toSnake(string $input): string
     {
-        return CaseFormat::SNAKE->convert($input);
+        return CaseType::SNAKE->convert($input);
     }
 
     public static function toKebab(string $input): string
     {
-        return CaseFormat::KEBAB->convert($input);
+        return CaseType::KEBAB->convert($input);
     }
 
     public static function toMacro(string $input): string
     {
-        return CaseFormat::MACRO->convert($input);
+        return CaseType::MACRO->convert($input);
     }
 
     public static function toTrain(string $input): string
     {
-        return CaseFormat::TRAIN->convert($input);
+        return CaseType::TRAIN->convert($input);
     }
 
     public static function toDot(string $input): string
     {
-        return CaseFormat::DOT->convert($input);
+        return CaseType::DOT->convert($input);
     }
 
     public static function toLower(string $input): string
     {
-        return CaseFormat::LOWER->convert($input);
+        return CaseType::LOWER->convert($input);
     }
 
     public static function toUpper(string $input): string
     {
-        return CaseFormat::UPPER->convert($input);
+        return CaseType::UPPER->convert($input);
     }
 
     public static function toTitle(string $input): string
     {
-        return CaseFormat::TITLE->convert($input);
+        return CaseType::TITLE->convert($input);
     }
 
     public static function toPath(string $input): string
     {
-        return CaseFormat::PATH->convert($input);
+        return CaseType::PATH->convert($input);
     }
 
     public static function toAda(string $input): string
     {
-        return CaseFormat::ADA->convert($input);
+        return CaseType::ADA->convert($input);
     }
 
     public static function toCobol(string $input): string
     {
-        return CaseFormat::COBOL->convert($input);
+        return CaseType::COBOL->convert($input);
     }
 
     public static function toSentence(string $input): string
     {
-        return CaseFormat::SENTENCE->convert($input);
+        return CaseType::SENTENCE->convert($input);
     }
 
     public static function isFormatSupported(string $format): bool
     {
-        return CaseFormat::isSupported($format);
+        return CaseType::isSupported($format);
     }
 
     /**
-     * @return array<CaseFormat>
+     * @return array<CaseType>
      */
     public static function getSupportedFormats(): array
     {
-        return CaseFormat::cases();
+        return CaseType::cases();
     }
 
     /**
@@ -110,7 +110,7 @@ class CaseConverter
      */
     public static function getSupportedFormatNames(): array
     {
-        return CaseFormat::getSupportedNames();
+        return CaseType::getSupportedNames();
     }
 
     /**
@@ -118,13 +118,13 @@ class CaseConverter
      */
     public static function getSupportedAliases(): array
     {
-        return CaseFormat::getAllAliases();
+        return CaseType::getAllAliases();
     }
 
-    public static function getFormatInfo(CaseFormat|string $format): CaseFormatInfo
+    public static function getFormatInfo(CaseType|string $format): CaseFormatInfo
     {
         if (is_string($format)) {
-            $format = CaseFormat::fromString($format);
+            $format = CaseType::fromString($format);
         }
 
         return $format->getInfo();
@@ -136,7 +136,7 @@ class CaseConverter
     public static function getAllFormatsInfo(): array
     {
         $info = [];
-        foreach (CaseFormat::cases() as $format) {
+        foreach (CaseType::cases() as $format) {
             $info[$format->value] = $format->getInfo();
         }
 
@@ -148,7 +148,7 @@ class CaseConverter
         $output = "Supported Case Formats:\n";
         $output .= str_repeat("=", 50) . "\n\n";
 
-        foreach (CaseFormat::cases() as $format) {
+        foreach (CaseType::cases() as $format) {
             $output .= sprintf(
                 "%s %s\n%s\nExample: %s\nAliases: %s\n\n",
                 $format->getEmoji(),

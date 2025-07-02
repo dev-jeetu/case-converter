@@ -2,7 +2,7 @@
 
 namespace DevJeetu\CaseConverter\Tests\Unit;
 
-use DevJeetu\CaseConverter\CaseConverter;
+use DevJeetu\CaseConverter\Converter;
 use PHPUnit\Framework\TestCase;
 
 class CaseConverterIntegrationTest extends TestCase
@@ -21,7 +21,7 @@ class CaseConverterIntegrationTest extends TestCase
 
         $frontendData = [];
         foreach ($apiResponse as $key => $value) {
-            $frontendData[CaseConverter::toCamel($key)] = $value;
+            $frontendData[Converter::toCamel($key)] = $value;
         }
 
         $expected = [
@@ -43,7 +43,7 @@ class CaseConverterIntegrationTest extends TestCase
         $phpProperties = [];
 
         foreach ($dbColumns as $column) {
-            $phpProperties[] = CaseConverter::toCamel($column);
+            $phpProperties[] = Converter::toCamel($column);
         }
 
         $expected = ['userName', 'emailAddress', 'phoneNumber', 'createdAt'];
@@ -60,7 +60,7 @@ class CaseConverterIntegrationTest extends TestCase
 
         $slugs = [];
         foreach ($titles as $title) {
-            $slugs[] = CaseConverter::toKebab($title);
+            $slugs[] = Converter::toKebab($title);
         }
 
         $expected = [

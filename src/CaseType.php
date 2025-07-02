@@ -25,7 +25,7 @@ use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
 /**
  * Enum representing different case formats with intuitive names and emojis
  */
-enum CaseFormat: string
+enum CaseType: string
 {
     case CAMEL = 'camel';
     case PASCAL = 'pascal';
@@ -199,7 +199,7 @@ enum CaseFormat: string
     }
 
     /**
-     * Create a CaseFormat from a string (case-insensitive)
+     * Create a CaseType from a string (case-insensitive)
      */
     public static function fromString(string $format): self
     {

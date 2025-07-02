@@ -2,17 +2,17 @@
 
 namespace DevJeetu\CaseConverter\Converters;
 
-use DevJeetu\CaseConverter\CaseFormat;
+use DevJeetu\CaseConverter\CaseType;
 use DevJeetu\CaseConverter\Contracts\StringCaseConverterInterface;
 use DevJeetu\CaseConverter\Helpers\Str;
 
 abstract class AbstractCase implements StringCaseConverterInterface
 {
     /**
-     * Forces each concrete converter to declare which CaseFormat enum member it represents.
+     * Forces each concrete converter to declare which CaseType enum member it represents.
      * This method must be implemented by all subclasses.
      */
-    abstract protected static function caseFormat(): CaseFormat;
+    abstract protected static function caseType(): CaseType;
 
     /**
      * Applies the final, specific casing logic to the string.
@@ -21,12 +21,12 @@ abstract class AbstractCase implements StringCaseConverterInterface
     abstract protected static function applySpecificCase(string $string): string;
 
     /**
-     * Provides the delimiter for the current converter based on its associated CaseFormat.
+     * Provides the delimiter for the current converter based on its associated CaseType.
      * Concrete converters no longer need to implement this.
      */
     final protected static function getDelimiter(): string
     {
-        return static::caseFormat()->getDelimiter();
+        return static::caseType()->getDelimiter();
     }
 
     /**

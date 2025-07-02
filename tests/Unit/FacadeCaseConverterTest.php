@@ -2,8 +2,8 @@
 
 namespace DevJeetu\CaseConverter\Tests\Unit;
 
-use DevJeetu\CaseConverter\CaseConverter;
-use DevJeetu\CaseConverter\CaseFormat;
+use DevJeetu\CaseConverter\CaseType;
+use DevJeetu\CaseConverter\Converter;
 use DevJeetu\CaseConverter\DTOs\CaseFormatInfo;
 use DevJeetu\CaseConverter\Exceptions\UnsupportedFormatException;
 use PHPUnit\Framework\TestCase;
@@ -14,42 +14,42 @@ class FacadeCaseConverterTest extends TestCase
     {
         $input = 'userName';
 
-        $this->assertEquals('user_name', CaseConverter::convert($input, CaseFormat::SNAKE));
-        $this->assertEquals('USER_NAME', CaseConverter::convert($input, CaseFormat::MACRO));
-        $this->assertEquals('userName', CaseConverter::convert($input, CaseFormat::CAMEL));
-        $this->assertEquals('UserName', CaseConverter::convert($input, CaseFormat::PASCAL));
+        $this->assertEquals('user_name', Converter::convert($input, CaseType::SNAKE));
+        $this->assertEquals('USER_NAME', Converter::convert($input, CaseType::MACRO));
+        $this->assertEquals('userName', Converter::convert($input, CaseType::CAMEL));
+        $this->assertEquals('UserName', Converter::convert($input, CaseType::PASCAL));
     }
 
     public function testStringConversion(): void
     {
         $input = 'userName';
 
-        $this->assertEquals('user_name', CaseConverter::convert($input, 'snake'));
-        $this->assertEquals('user_name', CaseConverter::convert($input, 'snake_case'));
-        $this->assertEquals('user_name', CaseConverter::convert($input, 'underscore'));
+        $this->assertEquals('user_name', Converter::convert($input, 'snake'));
+        $this->assertEquals('user_name', Converter::convert($input, 'snake_case'));
+        $this->assertEquals('user_name', Converter::convert($input, 'underscore'));
 
-        $this->assertEquals('user-name', CaseConverter::convert($input, 'kebab'));
-        $this->assertEquals('user-name', CaseConverter::convert($input, 'kebab-case'));
-        $this->assertEquals('user-name', CaseConverter::convert($input, 'dash'));
+        $this->assertEquals('user-name', Converter::convert($input, 'kebab'));
+        $this->assertEquals('user-name', Converter::convert($input, 'kebab-case'));
+        $this->assertEquals('user-name', Converter::convert($input, 'dash'));
     }
 
     public function testConvertThrowsExceptionForInvalidFormat(): void
     {
         $this->expectException(UnsupportedFormatException::class);
-        CaseConverter::convert('test', 'invalid_format');
+        Converter::convert('test', 'invalid_format');
     }
 
     public function testGetSupportedFormats(): void
     {
-        $formats = CaseConverter::getSupportedFormats();
+        $formats = Converter::getSupportedFormats();
         $this->assertIsArray($formats);
-        $this->assertContainsOnlyInstancesOf(CaseFormat::class, $formats);
+        $this->assertContainsOnlyInstancesOf(CaseType::class, $formats);
         $this->assertCount(14, $formats);
     }
 
     public function testGetSupportedFormatNames(): void
     {
-        $names = CaseConverter::getSupportedFormatNames();
+        $names = Converter::getSupportedFormatNames();
         $this->assertIsArray($names);
         $this->assertContains('snake', $names);
         $this->assertContains('camel', $names);
@@ -58,7 +58,7 @@ class FacadeCaseConverterTest extends TestCase
 
     public function testGetSupportedAliases(): void
     {
-        $aliases = CaseConverter::getSupportedAliases();
+        $aliases = Converter::getSupportedAliases();
         $this->assertIsArray($aliases);
         $this->assertContains('snake', $aliases);
         $this->assertContains('camel', $aliases);
@@ -68,16 +68,16 @@ class FacadeCaseConverterTest extends TestCase
 
     public function testIsFormatSupported(): void
     {
-        $this->assertTrue(CaseConverter::isFormatSupported('snake'));
-        $this->assertTrue(CaseConverter::isFormatSupported('kebab-case'));
-        $this->assertTrue(CaseConverter::isFormatSupported('camel'));
-        $this->assertFalse(CaseConverter::isFormatSupported('invalid_format'));
+        $this->assertTrue(Converter::isFormatSupported('snake'));
+        $this->assertTrue(Converter::isFormatSupported('kebab-case'));
+        $this->assertTrue(Converter::isFormatSupported('camel'));
+        $this->assertFalse(Converter::isFormatSupported('invalid_format'));
     }
 
     public function testGetFormatInfoReturnsValidCaseFormatInfo(): void
     {
-        foreach (CaseFormat::cases() as $case) {
-            $info = CaseConverter::getFormatInfo($case);
+        foreach (CaseType::cases() as $case) {
+            $info = Converter::getFormatInfo($case);
 
             $this->assertInstanceOf(CaseFormatInfo::class, $info);
             $this->assertEquals($case->value, $info->name, "Name mismatch for $case->name");

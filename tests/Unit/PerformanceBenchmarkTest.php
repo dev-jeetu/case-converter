@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DevJeetu\CaseConverter\Tests\Unit;
 
-use DevJeetu\CaseConverter\CaseConverter;
-use DevJeetu\CaseConverter\CaseFormat;
+use DevJeetu\CaseConverter\CaseType;
+use DevJeetu\CaseConverter\Converter;
 use PHPUnit\Framework\TestCase;
 
 class PerformanceBenchmarkTest extends TestCase
@@ -19,7 +19,7 @@ class PerformanceBenchmarkTest extends TestCase
         $startTime = microtime(true);
 
         for ($i = 0; $i < self::ITERATIONS; $i++) {
-            CaseConverter::toCamel($input);
+            Converter::toCamel($input);
         }
 
         $endTime = microtime(true);
@@ -38,7 +38,7 @@ class PerformanceBenchmarkTest extends TestCase
         $startTime = microtime(true);
 
         for ($i = 0; $i < self::ITERATIONS; $i++) {
-            CaseConverter::toSnake($input);
+            Converter::toSnake($input);
         }
 
         $endTime = microtime(true);
@@ -57,7 +57,7 @@ class PerformanceBenchmarkTest extends TestCase
         $startTime = microtime(true);
 
         for ($i = 0; $i < self::ITERATIONS; $i++) {
-            CaseConverter::toSnake($input);
+            Converter::toSnake($input);
         }
 
         $endTime = microtime(true);
@@ -76,7 +76,7 @@ class PerformanceBenchmarkTest extends TestCase
         $startTime = microtime(true);
 
         for ($i = 0; $i < self::ITERATIONS; $i++) {
-            CaseConverter::toSnake($input);
+            Converter::toSnake($input);
         }
 
         $endTime = microtime(true);
@@ -95,7 +95,7 @@ class PerformanceBenchmarkTest extends TestCase
         $startTime = microtime(true);
 
         for ($i = 0; $i < self::ITERATIONS; $i++) {
-            CaseConverter::convert($input, CaseFormat::CAMEL);
+            Converter::convert($input, CaseType::CAMEL);
         }
 
         $endTime = microtime(true);
@@ -114,7 +114,7 @@ class PerformanceBenchmarkTest extends TestCase
         $startTime = microtime(true);
 
         for ($i = 0; $i < self::ITERATIONS; $i++) {
-            CaseConverter::convert($input, 'camel');
+            Converter::convert($input, 'camel');
         }
 
         $endTime = microtime(true);
@@ -133,7 +133,7 @@ class PerformanceBenchmarkTest extends TestCase
 
         $start = microtime(true);
         foreach ($inputs as $input) {
-            CaseConverter::toSnake($input);
+            Converter::toSnake($input);
         }
         $end = microtime(true);
 
@@ -146,7 +146,7 @@ class PerformanceBenchmarkTest extends TestCase
         $complexString = 'XMLHttpRequestParserWithJSONWebTokenAndHTTPSConnection';
 
         $start = microtime(true);
-        $result = CaseConverter::toSnake($complexString);
+        $result = Converter::toSnake($complexString);
         $end = microtime(true);
 
         $this->assertLessThan(0.002, $end - $start, 'Complex string conversion should be fast');
